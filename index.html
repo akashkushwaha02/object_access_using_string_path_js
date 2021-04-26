@@ -23,11 +23,18 @@
   var res;
 
   function findPath(obj, path) {
-    if (path == undefined || obj == undefined) {
-      return undefined;
+    if (
+      typeof path !== "string" ||
+      typeof obj !== "object" ||
+      !Object.hasOwnProperty(obj)
+    ) {
+      return;
     }
     res = path.split(".");
-    res.forEach(function (element) {
+    res.forEach(function (element, index) {
+      if (obj === undefined) {
+        return;
+      }
       obj = obj[element];
     });
     //  console.log(obj);
@@ -35,13 +42,13 @@
   }
 
   //findPath(obj, "a.b.c");
-
-  console.log(findPath(obj, "a.b.c")); // 12
+  //console.log(findPath(obj)); // 12
+  console.log(findPath(false, "false"));
   //console.log(findPath(obj, "a.b")); // {c: 12, j: false}
   //console.log(findPath(obj, "a.b.d")); // undefined
   // console.log(findPath(obj, 'a.c')); // undefined
-  // console.log(findPath(obj, 'a.b.c.d')); // undefined
-  // console.log(findPath(obj, 'a.b.c.d.e')); // undefined
+  //console.log(findPath(obj, "a.b.c.d")); // undefined
+  //console.log(findPath(obj, "a.b.c.d.e")); // undefined
   //console.log(findPath(obj, "a.b.j")); //false
   // console.log(findPath(obj, 'a.b.j.k')); //undefined
   // console.log(findPath(obj, 'a.k')); //null
